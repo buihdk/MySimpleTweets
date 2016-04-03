@@ -1,5 +1,6 @@
 package com.codepath.apps.mysimpletweets.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -30,6 +31,8 @@ public class TimelineActivity extends AppCompatActivity {
     private TweetsArrayAdapter aTweets;
     private ListView lvTweets;
 
+    private final int REQUEST_CODE = 20;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +40,11 @@ public class TimelineActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //toolbar.setTitle("tet");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        // add Twitter logo
+        getSupportActionBar().setLogo(R.mipmap.ic_launcher);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         // Find the listview
         lvTweets = (ListView) findViewById(R.id.lvTweets);
@@ -66,9 +73,17 @@ public class TimelineActivity extends AppCompatActivity {
                 // User chose the "Settings" item, show the app settings UI...
                 return true;
 
+            case R.id.action_compose:
+                Intent i = new Intent(this, ComposeActivity.class);
+                startActivityForResult(i, REQUEST_CODE);
+                return true;
+
             case R.id.action_favorite:
                 // User chose the "Favorite" action, mark the current item
                 // as a favorite...
+                return true;
+
+            case R.id.action_search:
                 return true;
 
             default:
@@ -79,8 +94,15 @@ public class TimelineActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+
+        }
+    }
+
     // Send an API request to get the timeline json
-    // Fill the listview by creating the tweet objects from the json
+    // Fill the list view by creating the tweet objects from the json
     private void populateTimeline() {
         twitterClient.getHomeTimeline(new JsonHttpResponseHandler() {
             // SUCCESS
