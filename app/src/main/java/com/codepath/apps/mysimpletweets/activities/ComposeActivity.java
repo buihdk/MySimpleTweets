@@ -20,7 +20,7 @@ import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class ComposeActivity extends TimelineActivity {
+public class ComposeActivity extends AppCompatActivity {
 
     private TwitterClient twitterClient;
     private Toolbar toolbar;
@@ -54,9 +54,6 @@ public class ComposeActivity extends TimelineActivity {
             case R.id.action_post:
                 strTweet = etTweet.getText().toString();
                 postTweet(strTweet);
-                Intent data = new Intent();
-                data.putExtra("tweet", strTweet);
-                setResult(RESULT_OK, data);
                 this.finish();
                 return true;
             default:
@@ -64,13 +61,16 @@ public class ComposeActivity extends TimelineActivity {
         }
     }
 
-    private void postTweet(String tweet) {
+    private void postTweet(final String tweet) {
         twitterClient.postTweet(tweet, new JsonHttpResponseHandler() {
             // SUCCESS
             @Override
-            public void onSuccess(int statusCode, Header[] headers, String responseString) {
-
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Intent data = new Intent();
+                data.putExtra("tweet", tweet);
+                setResult(RESULT_OK, data);
             }
+
             // FAILURE
 
             @Override
