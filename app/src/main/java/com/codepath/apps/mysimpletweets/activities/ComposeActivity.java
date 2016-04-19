@@ -70,12 +70,10 @@ public class ComposeActivity extends AppCompatActivity {
                 data.putExtra("tweet", tweet);
                 setResult(RESULT_OK, data);
             }
-
             // FAILURE
-
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-
+                // Do something...
             }
         });
 

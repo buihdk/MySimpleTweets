@@ -4,16 +4,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".activities.TimelineActivity">
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+
     <item
         android:id="@+id/action_compose"
-        android:orderInCategory="200"
+        android:orderInCategory="100"
         android:title="@string/action_compose"
         android:icon="@drawable/ic_compose"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_profile"
+        android:orderInCategory="200"
+        android:title="@string/action_profile"
+        android:icon="@drawable/ic_profile"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_search"
